@@ -1,0 +1,391 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://domain.com/photoid.json",
+  "title": "Photo ID",
+  "description": "Verifiable Credential for a Photo ID.",
+  "type": "object",
+  "required": ["23220-1", "photoid", "dtc", "iss", "iat", "vct"],
+  "properties": {
+    "23220-1": {
+      "title": "ISO/IEC 23220-1",
+      "description": "ISO/IEC 23220-1 claims",
+      "type": "object",
+      "required": [
+        "family_name_unicode",
+        "given_name_unicode",
+        "birth_date",
+        "portrait",
+        "issue_date",
+        "expiry_date",
+        "issuing_authority_unicode",
+        "issuing_country",
+        "sex",
+        "nationality",
+        "document_number",
+        "name_at_birth",
+        "birthplace",
+        "portrait_capture_date",
+        "resident_address_unicode",
+        "resident_city_unicode",
+        "resident_postal_code",
+        "resident_country",
+        "age_over_18",
+        "age_in_years",
+        "age_birth_year"
+      ],
+      "properties": {
+        "family_name_unicode": {
+          "title": "Family Name",
+          "description": "Unicode-encoded family name of the document holder.",
+          "type": "string"
+        },
+        "given_name_unicode": {
+          "title": "Given Name",
+          "description": "Unicode-encoded first name of the document holder.",
+          "type": "string"
+        },
+        "birth_date": {
+          "title": "Birth Date",
+          "description": "Date of birth in ISO 8601 format.",
+          "type": "string",
+          "format": "date"
+        },
+        "portrait": {
+          "title": "Portrait",
+          "description": "A reproduction of the document holder’s portrait.",
+          "type": "string",
+          "format": "binary"
+        },
+        "issue_date": {
+          "title": "Issue Date",
+          "description": "Date when the document was issued.",
+          "type": "string",
+          "format": "date"
+        },
+        "expiry_date": {
+          "title": "Expiry Date",
+          "description": "The date when the document expires.",
+          "type": "string",
+          "format": "date"
+        },
+        "issuing_authority_unicode": {
+          "title": "Issuing Authority",
+          "description": "The authority responsible for issuing the document.",
+          "type": "string"
+        },
+        "issuing_country": {
+          "title": "Issuing Country",
+          "description": "The country issuing the document.",
+          "type": "string"
+        },
+        "sex": {
+          "title": "Sex",
+          "description": "The sex of the individual: F for Female, M for Male, < for non-specified.",
+          "type": "string",
+          "enum": ["F", "M", "<"]
+        },
+        "nationality": {
+          "title": "Nationality",
+          "description": "Nationality of the individual.",
+          "type": "string"
+        },
+        "document_number": {
+          "title": "Document Number",
+          "description": "Unique number identifying the document.",
+          "type": "string"
+        },
+        "name_at_birth": {
+          "title": "Name at Birth",
+          "description": "The name of the individual at birth.",
+          "type": "string"
+        },
+        "birthplace": {
+          "title": "Birthplace",
+          "description": "Place of birth (country and municipality or state/province).",
+          "type": "string"
+        },
+        "portrait_capture_date": {
+          "title": "Portrait Capture Date",
+          "description": "Date when the portrait was taken.",
+          "type": "string",
+          "format": "date-time"
+        },
+        "resident_address_unicode": {
+          "title": "Resident Address",
+          "description": "Unicode-encoded resident address of the individual.",
+          "type": "string"
+        },
+        "resident_city_unicode": {
+          "title": "Resident City",
+          "description": "Unicode-encoded city of residence.",
+          "type": "string"
+        },
+        "resident_postal_code": {
+          "title": "Resident Postal Code",
+          "description": "Postal code of the residence.",
+          "type": "string"
+        },
+        "resident_country": {
+          "title": "Resident Country",
+          "description": "Country of residence.",
+          "type": "string"
+        },
+        "age_over_18": {
+          "title": "Age Over 18",
+          "description": "Indicates if the individual is over 18.",
+          "type": "boolean"
+        },
+        "age_in_years": {
+          "title": "Age in Years",
+          "description": "The age of the individual in years.",
+          "type": "integer"
+        },
+        "age_birth_year": {
+          "title": "Birth Year",
+          "description": "The birth year of the individual.",
+          "type": "integer"
+        }
+      }
+    },
+    "photoid": {
+      "title": "Photo ID",
+      "description": "org.iso.23220.photoid.1 claims",
+      "type": "object",
+      "required": [
+        "person_id",
+        "birth_country",
+        "birth_state",
+        "birth_city",
+        "administrative_number",
+        "resident_street",
+        "resident_house_number",
+        "travel_document_number"
+      ],
+      "properties": {
+        "person_id": {
+          "type": "string",
+          "description": "Unique personal identifier."
+        },
+        "birth_country": {
+          "type": "string",
+          "description": "Country where the individual was born."
+        },
+        "birth_state": {
+          "type": "string",
+          "description": "State or province where the individual was born."
+        },
+        "birth_city": {
+          "type": "string",
+          "description": "City where the individual was born."
+        },
+        "administrative_number": {
+          "type": "string",
+          "description": "Administrative number associated with the person."
+        },
+        "resident_street": {
+          "type": "string",
+          "description": "Street address of the individual's residence."
+        },
+        "resident_house_number": {
+          "type": "string",
+          "description": "House number of the individual's residence."
+        },
+        "travel_document_number": {
+          "type": "string",
+          "description": "Number of the travel document (e.g., passport number)."
+        }
+      }
+    },
+    "dtc": {
+      "title": "DTC",
+      "description": "DTC",
+      "type": "object",
+      "required": [
+        "dataGroup1",
+        "dataGroup2EncodedFaceBiometrics",
+        "docSecurityObject"
+      ],
+      "properties": {
+        "dataGroup1": {
+          "title": "Data Group 1",
+          "description": "Data Group 1 (DG1) of the machine readable zone (MRZ). Reference: Section 4.7.1 of Doc 9303 Machine Readable Travel Documents, Eighth Edition 2021, Part 10: Logical Data Structure (LDS) for Storage of Biometrics and Other Data in the Contactless Integrated Circuit (IC).",
+          "type": "object",
+          "required": [
+            "birthdate",
+            "docTypeCode",
+            "expiryDate",
+            "sexCode",
+            "holdersName",
+            "issuerCode",
+            "natlCode",
+            "passportNumberIdentifier"
+          ],
+          "properties": {
+            "birthdate": {
+              "title": "Data Group 1 Birthdate",
+              "description": "Date of birth of the passport holder as recorded by the issuing State or organization.",
+              "type": "string",
+              "pattern": "^[0-9<]{2}([0<][1-9<]|[1<][0-2<])([0<][1-9<]|[12<][0-9<]|[3<][01<])$"
+            },
+            "docTypeCode": {
+              "title": "Data Group 1 Document Type Code",
+              "description": "Capital letter P to designate an ePassport. One additional capital letter may be used, in the character position after the letter P and at the discretion of the issuing State or organization, to designate other types of passports such as MRP issued to diplomatic staff.",
+              "type": "string",
+              "pattern": "^P.$"
+            },
+            "expiryDate": {
+              "title": "Data Group 1 Expiry Date",
+              "description": "Date of expiry of the ePassport.",
+              "type": "string",
+              "pattern": "^[0-9]{2}([0][1-9]|[1][0-2])([0][1-9]|[12][0-9]|[3][01])$"
+            },
+            "sexCode": {
+              "title": "Sex Code",
+              "description": "Sex of the passport holder; typically, F for Female, M for Male or < for non-specified.",
+              "type": "string",
+              "enum": ["F", "M", "<"]
+            },
+            "holdersName": {
+              "title": "Data Group 1 Holders Name",
+              "description": "Full name of the holder, as identified by the issuing State or organization.",
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 39
+            },
+            "issuerCode": {
+              "title": "Data Group 1 Issuer Code",
+              "description": "Code of the State or Organization responsible for the issuance of the ePassport.",
+              "type": "string",
+              "maxLength": 13
+            },
+            "natlCode": {
+              "title": "Data Group 1 Nationality Text",
+              "description": "The code for the nationality of the holder of the ePassport.",
+              "type": "string",
+              "minLength": 3,
+              "maxLength": 3
+            },
+            "passportNumberIdentifier": {
+              "title": "Data Group 1 Passport Number Identifier",
+              "description": "As given by the issuing State or organization to uniquely identify the document from all other MRTDs issued by the State or organization.",
+              "type": "string",
+              "maxLength": 9
+            }
+          }
+        },
+        "dataGroup15": {
+          "title": "Data Group 15",
+          "description": "Data group 15 defined by ICAO for ePassport. Reference: Section 4.7.15.1 of Doc 9303 Machine Readable Travel Documents, Eighth Edition 2021, Part 10: Logical Data Structure (LDS) for Storage of Biometrics and Other Data in the Contactless Integrated Circuit (IC).",
+          "type": "object",
+          "required": ["activeAuthentication"],
+          "properties": {
+            "activeAuthentication": {
+              "title": "Active Authentication",
+              "description": "Active Authentication authenticates the contactless IC by signing a challenge sent by the IFD (inspection system) with a private key known only to the IC. For this purpose the contactless IC contains its own Active Authentication Key pair (KPrAA and KPuAA). A hash representation of Data Group 15 (Public Key (KPuAA) info) is stored in the Document Security Object (SOD) and therefore authenticated by the issuer's digital signature. The corresponding Private Key (KPrAA) is stored in the contactless IC's secure memory. By authenticating the visual MRZ (through the hashed MRZ in the Document Security Object (SOD)) in combination with the challenge response, using the eMRTD's Active Authentication Key Pair (KPrAA and KPuAA), the inspection system verifies that the Document Security Object (SOD) has been read from the genuine contactless IC stored in the genuine eMRTD.",
+              "type": "object",
+              "required": ["publicKeyBinaryObject"],
+              "properties": {
+                "publicKeyBinaryObject": {
+                  "title": "Active Authentication Public Key Binary Object",
+                  "description": "Public key for use in active authentication. Example uri format data:application/octet-stream;base64,...",
+                  "type": "string",
+                  "format": "uri"
+                }
+              }
+            }
+          }
+        },
+        "dataGroup2EncodedFaceBiometrics": {
+          "title": "Data Group 2 Encoded Face Biometrics",
+          "description": "First, most recent, face biometric image from data group 2. Reference: Section 4.7.2 of Doc 9303 Machine Readable Travel Documents, Eighth Edition 2021, Part 10: Logical Data Structure (LDS) for Storage of Biometrics and Other Data in the Contactless Integrated Circuit (IC).",
+          "type": "object",
+          "required": ["faceBiometricDataEncodedPicture"],
+          "properties": {
+            "faceBiometricDataEncodedPicture": {
+              "title": "Data Group 2 Encoded Face Biometrics Face Biometric Data Encoded Picture",
+              "description": "First, most recent, face biometric image from data group 2. Example uri, data:image/jpeg;base64,...",
+              "type": "string",
+              "format": "uri"
+            }
+          }
+        },
+        "digitalTravelCredential": {
+          "title": "Digital Travel Credential",
+          "description": "Travel credentials in a digital format that are meant to temporarily or permanently substitute a conventional passport by a digital representation of the traveler's identity. Reference: Section 2.1.3 of Machine Readable Travel Documents, Digital Travel Credentials (DTC), Virtual Component Data Structure and PKI Mechanisms, Technical Report, Version 1.2 October 2020.",
+          "type": "object",
+          "required": ["dTCContentInfo"],
+          "properties": {
+            "dTCContentInfo": {
+              "title": "DTC-VC as DTCContentInfo encoded Structure",
+              "description": "DER encoded DTC-VC. Example uri format data:application/octet-stream;base64,...",
+              "type": "string",
+              "format": "uri"
+            }
+          }
+        },
+        "docSecurityObject": {
+          "title": "Document Security Object",
+          "description": "Document Security Object which contains the hashing information including hashed ePassport data. Reference: Section 4.6.2 of Doc 9303 Machine Readable Travel Documents, Eighth Edition 2021, Part 10: Logical Data Structure (LDS) for Storage of Biometrics and Other Data in the Contactless Integrated Circuit (IC).",
+          "type": "object",
+          "required": [
+            "dataGroupHash",
+            "digestHashAlgorithmIdentifier",
+            "versionNumber"
+          ],
+          "properties": {
+            "digestHashAlgorithmIdentifier": {
+              "title": "Document Security Object Digest Hash Algorithm Identifier",
+              "description": "Digest Algorithm Identifier used to perform hashing on the data groups.",
+              "type": "string",
+              "maxLength": 35
+            },
+            "versionNumber": {
+              "title": "Document Security Object Version Number",
+              "description": "Security object version.",
+              "type": "number"
+            },
+            "dataGroupHash": {
+              "title": "Data Group Hash",
+              "description": "Data group with corresponding hash value.",
+              "type": "array",
+              "items": {
+                "type": "object",
+                "title": "Data Group Hash",
+                "description": "Data group with corresponding hash value.",
+                "required": ["dataGroupNumber", "valueBinaryObject"],
+                "properties": {
+                  "dataGroupNumber": {
+                    "title": "Data Group Hash Data Group Number",
+                    "description": "Data group number.",
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 16
+                  },
+                  "valueBinaryObject": {
+                    "title": "Data Group Hash Value Binary Object",
+                    "description": "Hash value for the corresponding data group. Example uri format data:application/octet-stream;base64,...",
+                    "type": "string",
+                    "format": "uri"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "iss": {
+      "type": "string",
+      "format": "uri"
+    },
+    "iat": {
+      "type": "integer"
+    },
+    "exp": {
+      "type": "integer"
+    },
+    "vct": {
+      "type": "string"
+    }
+  }
+}
