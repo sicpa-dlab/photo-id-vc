@@ -68,9 +68,8 @@
         },
         "sex": {
           "title": "Sex",
-          "description": "The sex of the individual: F for Female, M for Male, < for non-specified.",
-          "type": "string",
-          "enum": ["F", "M", "<"]
+          "description": "The sex of the individual: 1 for Male, 2 for Female",
+          "type": "integer"
         },
         "nationality": {
           "title": "Nationality",
