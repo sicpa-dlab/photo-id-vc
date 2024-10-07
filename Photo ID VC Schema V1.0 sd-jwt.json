@@ -286,7 +286,7 @@
           "description": "Binary data for DTC Data Group 15.",
           "type": "string"
         },
-        "dtc_dg116": {
+        "dtc_dg16": {
           "title": "Data Group 16",
           "description": "Binary data for DTC Data Group 16.",
           "type": "string"
