@@ -68,12 +68,12 @@
         },
         "sex": {
           "title": "Sex",
-          "description": "The sex of the individual: 1 for Male, 2 for Female",
+          "description": "Holder's sex using values as defined in ISO/IEC 5218. 0= Not known, 1 = Male, 2 = Female, 9 = non-applicable",
           "type": "integer"
         },
         "nationality": {
           "title": "Nationality",
-          "description": "Nationality of the individual.",
+          "description": "Nationality of the holder as two letter country code (alpha-2 code) or three letter code alpha-3 code) defined in ISO 3166-1.",
           "type": "string"
         },
         "document_number": {
