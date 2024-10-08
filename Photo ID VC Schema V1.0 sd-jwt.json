@@ -4,9 +4,9 @@
   "title": "Photo ID",
   "description": "Verifiable Credential for a Photo ID.",
   "type": "object",
-  "required": ["23220-1", "photoid", "dtc", "iss", "iat", "vct"],
+  "required": ["iso23220", "photoid", "iss", "iat", "vct"],
   "properties": {
-    "23220-1": {
+    "iso23220": {
       "title": "ISO/IEC 23220-1",
       "description": "ISO/IEC 23220-1 claims",
       "type": "object",
@@ -19,19 +19,7 @@
         "expiry_date",
         "issuing_authority_unicode",
         "issuing_country",
-        "sex",
-        "nationality",
-        "document_number",
-        "name_at_birth",
-        "birthplace",
-        "portrait_capture_date",
-        "resident_address_unicode",
-        "resident_city_unicode",
-        "resident_postal_code",
-        "resident_country",
-        "age_over_18",
-        "age_in_years",
-        "age_birth_year"
+        "age_over_18"
       ],
       "properties": {
         "family_name_unicode": {
@@ -80,13 +68,12 @@
         },
         "sex": {
           "title": "Sex",
-          "description": "The sex of the individual: F for Female, M for Male, < for non-specified.",
-          "type": "string",
-          "enum": ["F", "M", "<"]
+          "description": "Holder's sex using values as defined in ISO/IEC 5218. 0= Not known, 1 = Male, 2 = Female, 9 = non-applicable",
+          "type": "integer"
         },
         "nationality": {
           "title": "Nationality",
-          "description": "Nationality of the individual.",
+          "description": "Nationality of the holder as two letter country code (alpha-2 code) or three letter code alpha-3 code) defined in ISO 3166-1.",
           "type": "string"
         },
         "document_number": {
@@ -144,6 +131,16 @@
           "title": "Birth Year",
           "description": "The birth year of the individual.",
           "type": "integer"
+        },
+        "family_name_latin1": {
+          "title": "Family Name",
+          "description": "latin1-encoded family name of the document holder.",
+          "type": "string"
+        },
+        "given_name_latin1": {
+          "title": "Given Name",
+          "description": "latin1-encoded first name of the document holder.",
+          "type": "string"
         }
       }
     },
@@ -151,48 +148,51 @@
       "title": "Photo ID",
       "description": "org.iso.23220.photoid.1 claims",
       "type": "object",
-      "required": [
-        "person_id",
-        "birth_country",
-        "birth_state",
-        "birth_city",
-        "administrative_number",
-        "resident_street",
-        "resident_house_number",
-        "travel_document_number"
-      ],
       "properties": {
         "person_id": {
-          "type": "string",
-          "description": "Unique personal identifier."
+          "title": "Person ID",
+          "description": "Unique personal identifier.",
+          "type": "string"
         },
         "birth_country": {
-          "type": "string",
-          "description": "Country where the individual was born."
+          "title": "Birth Country",
+          "description": "Country where the individual was born.",
+          "type": "string"
         },
         "birth_state": {
-          "type": "string",
-          "description": "State or province where the individual was born."
+          "title": "Birth State",
+          "description": "State or province where the individual was born.",
+          "type": "string"
         },
         "birth_city": {
-          "type": "string",
-          "description": "City where the individual was born."
+          "title": "Birth City",
+          "description": "City where the individual was born.",
+          "type": "string"
         },
         "administrative_number": {
-          "type": "string",
-          "description": "Administrative number associated with the person."
+          "title": "Administrative Number",
+          "description": "Administrative number associated with the person.",
+          "type": "string"
         },
         "resident_street": {
-          "type": "string",
-          "description": "Street address of the individual's residence."
+          "title": "Street",
+          "description": "Street address of the individual's residence.",
+          "type": "string"
         },
         "resident_house_number": {
-          "type": "string",
-          "description": "House number of the individual's residence."
+          "title": "House Number",
+          "description": "House number of the individual's residence.",
+          "type": "string"
         },
         "travel_document_number": {
-          "type": "string",
-          "description": "Number of the travel document (e.g., passport number)."
+          "title": "Travel Document Number",
+          "description": "Number of the travel document (e.g., passport number).",
+          "type": "string"
+        },
+        "resident_state": {
+          "title": "Resident State",
+          "description": "The state/province/district where the Photo ID holder lives.",
+          "type": "string"
         }
       }
     },
@@ -201,176 +201,105 @@
       "description": "DTC",
       "type": "object",
       "required": [
-        "dataGroup1",
-        "dataGroup2EncodedFaceBiometrics",
-        "docSecurityObject"
+        "dtc_dg1",
+        "dtc_dg2",
+        "dtc_sod"
       ],
       "properties": {
-        "dataGroup1": {
+        "dtc_version": {
+          "title": "DTC Version",
+          "description": "Version of the DTC definition",
+          "type": "string"
+        },
+        "dtc_dg1": {
           "title": "Data Group 1",
-          "description": "Data Group 1 (DG1) of the machine readable zone (MRZ). Reference: Section 4.7.1 of Doc 9303 Machine Readable Travel Documents, Eighth Edition 2021, Part 10: Logical Data Structure (LDS) for Storage of Biometrics and Other Data in the Contactless Integrated Circuit (IC).",
-          "type": "object",
-          "required": [
-            "birthdate",
-            "docTypeCode",
-            "expiryDate",
-            "sexCode",
-            "holdersName",
-            "issuerCode",
-            "natlCode",
-            "passportNumberIdentifier"
-          ],
-          "properties": {
-            "birthdate": {
-              "title": "Data Group 1 Birthdate",
-              "description": "Date of birth of the passport holder as recorded by the issuing State or organization.",
-              "type": "string",
-              "pattern": "^[0-9<]{2}([0<][1-9<]|[1<][0-2<])([0<][1-9<]|[12<][0-9<]|[3<][01<])$"
-            },
-            "docTypeCode": {
-              "title": "Data Group 1 Document Type Code",
-              "description": "Capital letter P to designate an ePassport. One additional capital letter may be used, in the character position after the letter P and at the discretion of the issuing State or organization, to designate other types of passports such as MRP issued to diplomatic staff.",
-              "type": "string",
-              "pattern": "^P.$"
-            },
-            "expiryDate": {
-              "title": "Data Group 1 Expiry Date",
-              "description": "Date of expiry of the ePassport.",
-              "type": "string",
-              "pattern": "^[0-9]{2}([0][1-9]|[1][0-2])([0][1-9]|[12][0-9]|[3][01])$"
-            },
-            "sexCode": {
-              "title": "Sex Code",
-              "description": "Sex of the passport holder; typically, F for Female, M for Male or < for non-specified.",
-              "type": "string",
-              "enum": ["F", "M", "<"]
-            },
-            "holdersName": {
-              "title": "Data Group 1 Holders Name",
-              "description": "Full name of the holder, as identified by the issuing State or organization.",
-              "type": "string",
-              "minLength": 1,
-              "maxLength": 39
-            },
-            "issuerCode": {
-              "title": "Data Group 1 Issuer Code",
-              "description": "Code of the State or Organization responsible for the issuance of the ePassport.",
-              "type": "string",
-              "maxLength": 13
-            },
-            "natlCode": {
-              "title": "Data Group 1 Nationality Text",
-              "description": "The code for the nationality of the holder of the ePassport.",
-              "type": "string",
-              "minLength": 3,
-              "maxLength": 3
-            },
-            "passportNumberIdentifier": {
-              "title": "Data Group 1 Passport Number Identifier",
-              "description": "As given by the issuing State or organization to uniquely identify the document from all other MRTDs issued by the State or organization.",
-              "type": "string",
-              "maxLength": 9
-            }
-          }
+          "description": "The full MRZ data for DTC Data Group 1, encoded as a string.",
+          "type": "string"
         },
-        "dataGroup15": {
+        "dtc_dg2": {
+          "title": "Data Group 2",
+          "description": "The biometric data for DTC Data Group 2 (e.g., facial image).",
+          "type": "string"
+        },
+        "dtc_dg3": {
+          "title": "Data Group 3",
+          "description": "Binary data for DTC Data Group 3.",
+          "type": "string"
+        },
+        "dtc_dg4": {
+          "title": "Data Group 4",
+          "description": "Binary data for DTC Data Group 4.",
+          "type": "string"
+        },
+        "dtc_dg5": {
+          "title": "Data Group 5",
+          "description": "Binary data for DTC Data Group 5.",
+          "type": "string"
+        },
+        "dtc_dg6": {
+          "title": "Data Group 6",
+          "description": "Binary data for DTC Data Group 6.",
+          "type": "string"
+        },
+        "dtc_dg7": {
+          "title": "Data Group 7",
+          "description": "Binary data for DTC Data Group 7.",
+          "type": "string"
+        },
+        "dtc_dg8": {
+          "title": "Data Group 8",
+          "description": "Binary data for DTC Data Group 8.",
+          "type": "string"
+        },
+        "dtc_dg9": {
+          "title": "Data Group 9",
+          "description": "Binary data for DTC Data Group 9.",
+          "type": "string"
+        },
+        "dtc_dg10": {
+          "title": "Data Group 10",
+          "description": "Binary data for DTC Data Group 10.",
+          "type": "string"
+        },
+        "dtc_dg11": {
+          "title": "Data Group 11",
+          "description": "Binary data for DTC Data Group 11.",
+          "type": "string"
+        },
+        "dtc_dg12": {
+          "title": "Data Group 12",
+          "description": "Binary data for DTC Data Group 12.",
+          "type": "string"
+        },
+        "dtc_dg13": {
+          "title": "Data Group 13",
+          "description": "Binary data for DTC Data Group 13.",
+          "type": "string"
+        },
+        "dtc_dg14": {
+          "title": "Data Group 14",
+          "description": "Binary data for DTC Data Group 14.",
+          "type": "string"
+        },
+        "dtc_dg15": {
           "title": "Data Group 15",
-          "description": "Data group 15 defined by ICAO for ePassport. Reference: Section 4.7.15.1 of Doc 9303 Machine Readable Travel Documents, Eighth Edition 2021, Part 10: Logical Data Structure (LDS) for Storage of Biometrics and Other Data in the Contactless Integrated Circuit (IC).",
-          "type": "object",
-          "required": ["activeAuthentication"],
-          "properties": {
-            "activeAuthentication": {
-              "title": "Active Authentication",
-              "description": "Active Authentication authenticates the contactless IC by signing a challenge sent by the IFD (inspection system) with a private key known only to the IC. For this purpose the contactless IC contains its own Active Authentication Key pair (KPrAA and KPuAA). A hash representation of Data Group 15 (Public Key (KPuAA) info) is stored in the Document Security Object (SOD) and therefore authenticated by the issuer's digital signature. The corresponding Private Key (KPrAA) is stored in the contactless IC's secure memory. By authenticating the visual MRZ (through the hashed MRZ in the Document Security Object (SOD)) in combination with the challenge response, using the eMRTD's Active Authentication Key Pair (KPrAA and KPuAA), the inspection system verifies that the Document Security Object (SOD) has been read from the genuine contactless IC stored in the genuine eMRTD.",
-              "type": "object",
-              "required": ["publicKeyBinaryObject"],
-              "properties": {
-                "publicKeyBinaryObject": {
-                  "title": "Active Authentication Public Key Binary Object",
-                  "description": "Public key for use in active authentication. Example uri format data:application/octet-stream;base64,...",
-                  "type": "string",
-                  "format": "uri"
-                }
-              }
-            }
-          }
+          "description": "Binary data for DTC Data Group 15.",
+          "type": "string"
         },
-        "dataGroup2EncodedFaceBiometrics": {
-          "title": "Data Group 2 Encoded Face Biometrics",
-          "description": "First, most recent, face biometric image from data group 2. Reference: Section 4.7.2 of Doc 9303 Machine Readable Travel Documents, Eighth Edition 2021, Part 10: Logical Data Structure (LDS) for Storage of Biometrics and Other Data in the Contactless Integrated Circuit (IC).",
-          "type": "object",
-          "required": ["faceBiometricDataEncodedPicture"],
-          "properties": {
-            "faceBiometricDataEncodedPicture": {
-              "title": "Data Group 2 Encoded Face Biometrics Face Biometric Data Encoded Picture",
-              "description": "First, most recent, face biometric image from data group 2. Example uri, data:image/jpeg;base64,...",
-              "type": "string",
-              "format": "uri"
-            }
-          }
+        "dtc_dg16": {
+          "title": "Data Group 16",
+          "description": "Binary data for DTC Data Group 16.",
+          "type": "string"
         },
-        "digitalTravelCredential": {
-          "title": "Digital Travel Credential",
-          "description": "Travel credentials in a digital format that are meant to temporarily or permanently substitute a conventional passport by a digital representation of the traveler's identity. Reference: Section 2.1.3 of Machine Readable Travel Documents, Digital Travel Credentials (DTC), Virtual Component Data Structure and PKI Mechanisms, Technical Report, Version 1.2 October 2020.",
-          "type": "object",
-          "required": ["dTCContentInfo"],
-          "properties": {
-            "dTCContentInfo": {
-              "title": "DTC-VC as DTCContentInfo encoded Structure",
-              "description": "DER encoded DTC-VC. Example uri format data:application/octet-stream;base64,...",
-              "type": "string",
-              "format": "uri"
-            }
-          }
+        "dtc_sod": {
+          "title": "Security Object Document",
+          "description": "he encoded Security Object Document (SOD) for DTC, which contains the digital signature and other cryptographic information.",
+          "type": "string"
         },
-        "docSecurityObject": {
-          "title": "Document Security Object",
-          "description": "Document Security Object which contains the hashing information including hashed ePassport data. Reference: Section 4.6.2 of Doc 9303 Machine Readable Travel Documents, Eighth Edition 2021, Part 10: Logical Data Structure (LDS) for Storage of Biometrics and Other Data in the Contactless Integrated Circuit (IC).",
-          "type": "object",
-          "required": [
-            "dataGroupHash",
-            "digestHashAlgorithmIdentifier",
-            "versionNumber"
-          ],
-          "properties": {
-            "digestHashAlgorithmIdentifier": {
-              "title": "Document Security Object Digest Hash Algorithm Identifier",
-              "description": "Digest Algorithm Identifier used to perform hashing on the data groups.",
-              "type": "string",
-              "maxLength": 35
-            },
-            "versionNumber": {
-              "title": "Document Security Object Version Number",
-              "description": "Security object version.",
-              "type": "number"
-            },
-            "dataGroupHash": {
-              "title": "Data Group Hash",
-              "description": "Data group with corresponding hash value.",
-              "type": "array",
-              "items": {
-                "type": "object",
-                "title": "Data Group Hash",
-                "description": "Data group with corresponding hash value.",
-                "required": ["dataGroupNumber", "valueBinaryObject"],
-                "properties": {
-                  "dataGroupNumber": {
-                    "title": "Data Group Hash Data Group Number",
-                    "description": "Data group number.",
-                    "type": "integer",
-                    "minimum": 1,
-                    "maximum": 16
-                  },
-                  "valueBinaryObject": {
-                    "title": "Data Group Hash Value Binary Object",
-                    "description": "Hash value for the corresponding data group. Example uri format data:application/octet-stream;base64,...",
-                    "type": "string",
-                    "format": "uri"
-                  }
-                }
-              }
-            }
-          }
+        "dg_content_info" {
+          "title": "Content Info",
+          "description": "Binary data of the DTCContentInfo",
+          "type": "string"
         }
       }
     },
